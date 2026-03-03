@@ -35,3 +35,6 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Zip generado por Terraform para la Cloud Function
+budget_guard.zip
