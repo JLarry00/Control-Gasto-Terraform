@@ -1,11 +1,11 @@
 # Copia a terraform.tfvars y rellena. terraform.tfvars no se sube a git.
 
-project_id          = "tu-proyecto-gcp"
+project_id          = "laboratirio-devops-thinkia"
 billing_account_id  = "012345-ABCDEF-678901"
 region              = "europe-west1"
-budget_amount       = 100
+budget_amount       = 1
 budget_currency     = "EUR"
-budget_alert_thresholds = [0.5, 0.9, 1.0]
+budget_alert_thresholds = [1.0]
 
 # Mapa: API id (Service Usage) -> ID de servicio de facturación (Billing).
 # Obtener IDs en Billing > Informes o Catalog API. Un presupuesto por entrada.
