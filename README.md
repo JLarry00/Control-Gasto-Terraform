@@ -7,7 +7,7 @@ Este repositorio despliega la **infraestructura de control de presupuesto** sobr
 ## Servicios controlados por defecto
 
 - Cloud Run, Vertex AI, BigQuery, Firebase, Kubernetes (GKE).  
-  Para ampliar: añade entradas en `api_to_billing_service_id` y en `apis_to_control_on_budget_exceeded`.
+  Para ampliar: añade entradas en `terraform.tfvars`, en: `api_to_billing_service_id` y en `apis_to_control_on_budget_exceeded`.
 
 ## Qué despliega este Terraform
 

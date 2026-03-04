@@ -1,1 +1,1 @@
-google-cloud-service-usage>=1.12.0
+google-cloud-service-usage>=1.1.0

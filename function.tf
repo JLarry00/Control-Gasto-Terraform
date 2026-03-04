@@ -63,6 +63,7 @@ resource "google_cloudfunctions2_function" "budget_guard" {
     environment_variables = {
       GCP_PROJECT             = var.project_id
       APIS_TO_DISABLE_ON_BUDGET = jsonencode(var.apis_to_control_on_budget_exceeded)
+      BUDGET_ALERT_THRESHOLD = var.budget_alert_thresholds[0]
     }
   }
 

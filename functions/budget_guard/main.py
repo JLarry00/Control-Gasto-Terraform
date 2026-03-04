@@ -24,7 +24,7 @@ def _disable_api(project_id: str, service_id: str) -> bool:
     client = service_usage_v1.ServiceUsageClient()
     name = f"projects/{project_id}/services/{service_id}"
     try:
-        operation = client.disable_service(name=name)
+        operation = client.disable_service(request={"name": name})
         operation.result(timeout=60)
         return True
     except exceptions.GoogleAPICallError as e:
@@ -42,6 +42,11 @@ def budget_guard(event, context):
     if not project_id:
         print("GCP_PROJECT no configurado")
         return
+    
+    alert_threshold = float(os.environ.get("BUDGET_ALERT_THRESHOLD", "0"))
+    if alert_threshold == 0:
+        print("BUDGET_ALERT_THRESHOLD no configurado")
+        return
 
     allowed = _get_allowed_apis()
     if not allowed:
@@ -57,7 +62,7 @@ def budget_guard(event, context):
 
     alert = payload.get("alertThresholdExceeded") is not None or (
         float(payload.get("costAmount", 0) or 0)
-        >= float(payload.get("budgetAmount", 0) or 0)
+        >= alert_threshold * float(payload.get("budgetAmount", 0) or 0)
     )
     if not alert:
         print("No es alerta de superación de umbral")
