@@ -7,6 +7,7 @@ import base64
 import json
 import os
 from google.cloud import service_usage_v1
+from google.cloud import billing_v1
 from google.api_core import exceptions
 
 
@@ -29,6 +30,14 @@ def _disable_api(project_id: str, service_id: str) -> bool:
         return True
     except exceptions.GoogleAPICallError as e:
         print(f"Error deshabilitando {service_id}: {e}")
+        return False
+
+
+def _disable_api_force(project_id: str, service_id: str) -> bool:
+        return False
+
+
+def _disable_project_billing(project_id: str) -> bool:
         return False
 
 
@@ -81,4 +90,14 @@ def budget_guard(event, context):
     if _disable_api(project_id, api_to_disable):
         print(f"API deshabilitada: {api_to_disable}")
     else:
-        print(f"No se pudo deshabilitar: {api_to_disable}")
+        print(f"No se pudo deshabilitar suavemente: {api_to_disable}")
+        print(f"Intentando deshabilitar de forma forzosa")
+        if _disable_api_force(project_id, api_to_disable):
+            print(f"API deshabilitada de forma forzosa: {api_to_disable}")
+        else:
+            print(f"No se pudo deshabilitar de forma forzosa: {api_to_disable}")
+            print(f"Intentando deshabilitar la facturación del proyecto")
+            if _disable_project_billing(project_id):
+                print(f"Facturación deshabilitada")
+            else:
+                print(f"No se pudo deshabilitar la facturación del proyecto")

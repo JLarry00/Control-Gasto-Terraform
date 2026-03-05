@@ -38,6 +38,13 @@ resource "google_project_iam_member" "budget_guard_service_usage" {
   member  = "serviceAccount:${google_service_account.budget_guard.email}"
 }
 
+# Permiso para deshabilitar la facturación del proyecto (Billing)
+resource "google_project_iam_member" "budget_guard_billing_manager" {
+  project = var.project_id
+  role    = "roles/billing.projectManager"
+  member  = "serviceAccount:${google_service_account.budget_guard.email}"
+}
+
 resource "google_cloudfunctions2_function" "budget_guard" {
   name     = "budget-guard"
   location = var.region
