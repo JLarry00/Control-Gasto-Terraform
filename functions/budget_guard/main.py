@@ -3,7 +3,6 @@ import json
 import os
 from google.cloud import service_usage_v1
 from google.cloud import billing_v1  # Asegúrate de tenerlo en requirements.txt
-from google.api_core import exceptions
 
 def _get_allowed_apis() -> set:
     raw = os.environ.get("APIS_TO_DISABLE_ON_BUDGET", "[]")
